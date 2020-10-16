@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
+import './App.scss';
 import axios from 'axios';
 import Dropdown from './components/Dropdown';
+import { getApiUrls } from './services/apis.service';
 
 const App = () => {
 	const [countries, setCountries] = useState([]);
 	const [load, setLoad] = useState(false);
 	const [error, setError] = useState('');
 	
-	useEffect(()=> {
-		axios.get('http://46.101.108.59/api/countries').then(res => {
+	const getAllCountries = async () => {
+		await axios.get(getApiUrls().getAllCountries).then(res => {
 			setCountries([...res.data.data]);
 			setLoad(true);
 		}).catch(err => {
 			setLoad(false);
 			setError(err.message);
 		});
-		
-		console.log(countries);
+	}
+
+	useEffect(()=> {
+		getAllCountries();
 	}, [])
 
 	return (

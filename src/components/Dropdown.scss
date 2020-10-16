@@ -1,0 +1,14 @@
+.dd {
+    &--input {
+        width:250px;
+        height: 40px;
+        padding: .5rem;
+        font-size: .9rem;
+        outline: none;
+        border: 1px solid #e3e3e3;
+
+        &:focus{
+            box-shadow: 0 0 1rem 0 rgba(#000,.08);
+        }
+    }
+}

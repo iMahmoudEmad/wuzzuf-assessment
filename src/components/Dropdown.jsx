@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import './dropdown.css'
+import './Dropdown.scss'
 
 const Dropdown = ({items}) => {
     const [open, setOpen] = useState(false);
@@ -16,15 +16,14 @@ const Dropdown = ({items}) => {
     }
 
     const checkIfInputFoucs = () => {
-        console.log(items);
         inputEl.current.focus();
-        setOpen(true);
+        if (!open) setOpen(true);
     }
 
     return (
         <div className="dd">
             <div className="dd--header">
-                <input ref={inputEl} onClick={checkIfInputFoucs} type="text" placeholder="Select your country" value={selected?.attributes?.name} />
+                <input className="dd--input" ref={inputEl} onClick={checkIfInputFoucs} type="text" placeholder="Select your country" value={selected?.attributes?.name} />
             </div>
 
             { open &&
