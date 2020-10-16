@@ -31,7 +31,7 @@ const Dropdown = ({items}) => {
             { open &&
                 <ul className="dd--body-list">
                     {items.map((item) => (
-                        <li key={item.id} className={selected.id == item.id ? 'selected' : ''}>
+                        <li key={item.id} className={selected.id === item.id ? 'selected' : ''}>
                             <button type="button" onClick={() => setSelectedItem(item)}>
                                 {item?.attributes?.name}
                             </button>

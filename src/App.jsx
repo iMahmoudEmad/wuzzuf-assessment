@@ -26,7 +26,7 @@ const App = () => {
 	return (
 		<div className="wrapper">
 			<h2>Country</h2>
-			<Dropdown items={countries} />
+			{load && <Dropdown items={countries} />}
         </div>
 	);
 }
