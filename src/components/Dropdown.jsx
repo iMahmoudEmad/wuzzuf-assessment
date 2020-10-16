@@ -20,10 +20,12 @@ const Dropdown = ({items}) => {
         if (!open) setOpen(true);
     }
 
+    const changeInputValue = (e) => setSelected(e.target.value);
+
     return (
         <div className="dd">
             <div className="dd--header">
-                <input className="dd--input" ref={inputEl} onClick={checkIfInputFoucs} type="text" placeholder="Select your country" value={selected?.attributes?.name} />
+                <input className="dd--input" ref={inputEl} type="text" placeholder="Select your country"  value={selected?.attributes?.name || selected} onClick={checkIfInputFoucs} onChange={e => changeInputValue(e)} />
             </div>
 
             { open &&
