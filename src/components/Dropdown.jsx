@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import './Dropdown.scss'
 
-const Dropdown = ({items}) => {
+const Dropdown = ({items, details}) => {
     const [open, setOpen] = useState(false);
     const [selected, setSelected] = useState('');
 
@@ -12,6 +12,7 @@ const Dropdown = ({items}) => {
         if (item) {
             setSelected(item);
             setOpen(!open);
+            details(item);
         }
     }
 

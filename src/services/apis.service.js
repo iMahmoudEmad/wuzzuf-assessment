@@ -3,5 +3,6 @@ export function getApiUrls() {
     
     return {
         getAllCountries: `${_baseUrl}/countries`,
+        getCountryDetails: `${_baseUrl}/country/{ID}/city`,
     };
 }
