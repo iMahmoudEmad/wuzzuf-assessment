@@ -6,6 +6,6 @@ export const getAllCountries = async () => {
 }
 
 export const getCountryDetails = async (selectedCountryId) => {
-    const path = getApiUrls().getCountryDetails.replace('{ID}', selectedCountryId);
+    const path = getApiUrls().getCountryDetails.replace('{countryId}', selectedCountryId);
     return await axios.get(path);
 }

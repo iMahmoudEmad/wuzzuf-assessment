@@ -13,6 +13,7 @@ const Dropdown = ({items, details}) => {
             setSelected(item);
             setOpen(!open);
             details(item);
+            console.log('item', item);
         }
     }
 

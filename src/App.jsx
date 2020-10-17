@@ -5,16 +5,21 @@ import { getAllCountries, getCountryDetails } from './services/countries.service
 
 const App = () => {
 	const [countries, setCountries] = useState([]);
-	const [country, setCountry] = useState('');
-	const [selectedCountry, setSelectedCountry] = useState('');
+	const [cities, setCities] = useState('');
+	const [selectedCountry, setSelectedCountry] = useState();
+	const [selectedCity, setSelectedCity] = useState();
 	const [load, setLoad] = useState(false);
 	const [error, setError] = useState('');
 
 
-	function getSelectedCountryId(selectedCountry){
-		setSelectedCountry(selectedCountry.id)
-		console.log('selectedCountry', selectedCountry);
-		getCountryDetails(selectedCountry.id).then(res => setCountry([...res.data.data]));
+	const getSelectedCountryId = selectedCountry => {
+		setSelectedCountry(selectedCountry.id);
+		getCountryDetails(selectedCountry.id).then(res => setCities([...res.data.data]));
+	}
+
+	const getSelectedCityId = selectedCountry => {
+		setSelectedCity(selectedCountry.id);
+		// getCountryDetails(selectedCountry.id).then(res => setCities([...res.data.data]));
 	}
 
 	useEffect(()=> {
@@ -34,10 +39,10 @@ const App = () => {
 			<h2>Country</h2>
 			{load && <Dropdown items={countries} details={getSelectedCountryId} />}
 			
-			{ selectedCountry?.id == "56" &&
+			{ (selectedCountry && cities) &&
 				<>
 					<h2>City</h2>
-					<Dropdown items={country} />
+					<Dropdown items={cities} details={getSelectedCityId} />
 				</>
 			}
         </div>
