@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './App.scss';
 import Dropdown from './components/Dropdown';
-import { getAllCountries, getCountryDetails } from './services/countries.service';
+import { getAllCountries, getCityDetails, getCountryDetails } from './services/countries.service';
 
 const App = () => {
-	const [countries, setCountries] = useState([]);
-	const [cities, setCities] = useState('');
+	const [countries, setCountries] = useState(null);
+	const [cities, setCities] = useState(null);
 	const [selectedCountry, setSelectedCountry] = useState();
 	const [selectedCity, setSelectedCity] = useState();
 	const [load, setLoad] = useState(false);
@@ -17,13 +17,14 @@ const App = () => {
 		getCountryDetails(selectedCountry.id).then(res => setCities([...res.data.data]));
 	}
 
-	const getSelectedCityId = selectedCountry => {
-		setSelectedCity(selectedCountry.id);
-		// getCountryDetails(selectedCountry.id).then(res => setCities([...res.data.data]));
+	const getSelectedCityId = selectedCity => {
+		setSelectedCity(selectedCity.id);
+		getCityDetails(selectedCountry, selectedCity.id).then(res => setCities([...res.data.data]));
 	}
 
 	useEffect(()=> {
-		getAllCountries()
+		if(!countries) {
+			getAllCountries()
 			.then(res => {
 				setCountries([...res.data.data]);
 				setLoad(true);
@@ -31,8 +32,8 @@ const App = () => {
 				setLoad(false);
 				setError(err.message);
 			});
-		
-	}, [])
+		}
+	}, [countries, cities, selectedCountry, selectedCity, load, error])
 
 	return (
 		<div className="wrapper">

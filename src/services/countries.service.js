@@ -9,3 +9,8 @@ export const getCountryDetails = async (selectedCountryId) => {
     const path = getApiUrls().getCountryDetails.replace('{countryId}', selectedCountryId);
     return await axios.get(path);
 }
+
+export const getCityDetails = async (selectedCountryId, selectedCityId) => {
+    const path = getApiUrls().getCityDetails.replace('{countryId}', selectedCountryId).replace('{cityId}', selectedCityId);
+    return await axios.get(path);
+}
