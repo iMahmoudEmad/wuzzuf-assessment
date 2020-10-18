@@ -12,7 +12,7 @@ const Dropdown = ({items, details}) => {
         if (item) {
             setSelected(item);
             setOpen(!open);
-            details(item);
+            if(details) details(item);
         }
     }
 

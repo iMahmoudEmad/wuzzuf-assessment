@@ -6,6 +6,7 @@ import { getAllCountries, getCityDetails, getCountryDetails } from './services/c
 const App = () => {
 	const [countries, setCountries] = useState(null);
 	const [cities, setCities] = useState(null);
+	const [area, setArea] = useState(null);
 	const [selectedCountry, setSelectedCountry] = useState();
 	const [selectedCity, setSelectedCity] = useState();
 	const [load, setLoad] = useState(false);
@@ -13,13 +14,14 @@ const App = () => {
 
 
 	const getSelectedCountryId = selectedCountry => {
-		setSelectedCountry(selectedCountry.id);
+		setSelectedCountry(selectedCountry);
+		if(selectedCity) setSelectedCity(null);
 		getCountryDetails(selectedCountry.id).then(res => setCities([...res.data.data]));
 	}
 
 	const getSelectedCityId = selectedCity => {
-		setSelectedCity(selectedCity.id);
-		getCityDetails(selectedCountry, selectedCity.id).then(res => setCities([...res.data.data]));
+		setSelectedCity(selectedCity);
+		getCityDetails(selectedCountry.id, selectedCity.id).then(res => setArea([...res.data.data]));
 	}
 
 	useEffect(()=> {
@@ -44,6 +46,13 @@ const App = () => {
 				<>
 					<h2>City</h2>
 					<Dropdown items={cities} details={getSelectedCityId} />
+				</>
+			}
+			
+			{ (area && selectedCountry?.attributes?.iso2Code == 'EG') &&
+				<>
+					<h2>Area</h2>
+					<Dropdown items={area} />
 				</>
 			}
         </div>
