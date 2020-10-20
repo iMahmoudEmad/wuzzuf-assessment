@@ -1,19 +1,24 @@
-import React, { useState, useRef } from 'react'
-import './Dropdown.scss'
+import React, { useState, useRef } from 'react';
+import './Dropdown.scss';
 
-const Dropdown = ({items, details}) => {
+const Dropdown = ({items, details, prevValue, inputValue}) => {
     const [open, setOpen] = useState(false);
-    const [selected, setSelected] = useState('');
+    const [selected, setSelected] = useState(inputValue || '');
 
     const toggleOpen = () => setOpen(!open);
     const inputEl = useRef(null);
 
     const setSelectedItem = item => {
         if (item) {
-            setSelected(item);
+            setSelected(prev => checkIfItemHasPreviousValue(prev, item));
             setOpen(!open);
             if(details) details(item);
         }
+    }
+
+    const checkIfItemHasPreviousValue = (prev, value) => {
+        if(prev && prevValue) prevValue(prev);
+        return value;
     }
 
     const checkIfInputFoucs = () => {

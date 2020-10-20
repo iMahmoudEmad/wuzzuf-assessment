@@ -21,8 +21,16 @@ const App = () => {
 
 	const getSelectedCityId = selectedCity => {
 		setSelectedCity(selectedCity);
-		getCityDetails(selectedCountry.id, selectedCity.id).then(res => setArea([...res.data.data]));
+		if(checkIfCountryIsEgypt) getCityDetails(selectedCountry.id, selectedCity.id).then(res => setArea([...res.data.data]));
 	}
+
+	const checkIfCountryHasPreviousValue = prevCountryValue => {
+		setError('Please select city');
+		setSelectedCity('');
+		return prevCountryValue;
+	};
+
+	const checkIfCountryIsEgypt = selectedCountry?.attributes?.iso2Code === 'EG';
 
 	useEffect(()=> {
 		if(!countries) {
@@ -35,21 +43,27 @@ const App = () => {
 				setError(err.message);
 			});
 		}
-	}, [countries, cities, selectedCountry, selectedCity, load, error])
+	}, [countries, cities, selectedCountry, selectedCity, load, error]);
 
 	return (
 		<div className="wrapper">
-			<h2>Country</h2>
-			{load && <Dropdown items={countries} details={getSelectedCountryId} />}
+			
+			{load && 
+				<>
+					<h2>Country</h2>
+					<Dropdown items={countries} details={getSelectedCountryId} prevValue={checkIfCountryHasPreviousValue} />
+				</>
+			}
 			
 			{ (selectedCountry && cities) &&
 				<>
 					<h2>City</h2>
-					<Dropdown items={cities} details={getSelectedCityId} />
+					<Dropdown items={cities} details={getSelectedCityId} inputValue={selectedCity} />
+					{((checkIfCountryHasPreviousValue && error) && !selectedCity) && <p className="error">{error}</p>}
 				</>
 			}
 			
-			{ (area && selectedCountry?.attributes?.iso2Code == 'EG') &&
+			{ (selectedCity && (area && checkIfCountryIsEgypt)) &&
 				<>
 					<h2>Area</h2>
 					<Dropdown items={area} />
