@@ -1,19 +1,17 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './Dropdown.scss';
 
-const Dropdown = ({ items, details, prevValue }) => {
+const Dropdown = ({ items, details, inputValue, prevValue }) => {
 	const [open, setOpen] = useState(false);
 	const [selected, setSelected] = useState('');
 	const [searchValue, setSearchValue] = useState('');
 	const inputEl = useRef();
 
 	const setSelectedItem = (item) => {
-		if (item) {
-			setSelected((prev) => checkIfItemHasPreviousValue(prev, item));
-			setSearchValue(item);
-			setOpen(!open);
-			if (details) details(item);
-		}
+		setSelected((prev) => checkIfItemHasPreviousValue(prev, item));
+		setSearchValue(item);
+		setOpen(!open);
+		if (details) details(item);
 	};
 
 	const checkIfItemHasPreviousValue = (prev, value) => {
@@ -21,20 +19,25 @@ const Dropdown = ({ items, details, prevValue }) => {
 		return value;
 	};
 
-	const checkIfInputFoucs = () => {
+	const checkIfInputFocus = () => {
 		inputEl.current.focus();
 		if (!open) setOpen(true);
 	};
 
 	const changeInputValue = (e) => setSearchValue(e.target.value);
 
-	const filteredItems = items.filter((item) =>
-		(item?.attributes?.name || item)
-			.toLowerCase()
-			.includes(
-				searchValue?.attributes?.name.toLowerCase() || searchValue.toLowerCase()
-			)
-	);
+	const filteredItems = items.filter((item) => {
+		if (searchValue.length) {
+			return item?.attributes?.name
+				.toLowerCase()
+				.includes(
+					searchValue?.attributes?.name.toLowerCase() ||
+						searchValue.toLowerCase()
+				);
+		}
+
+		return items;
+	});
 
 	return (
 		<div className='dd'>
@@ -44,8 +47,8 @@ const Dropdown = ({ items, details, prevValue }) => {
 					ref={inputEl}
 					type='text'
 					placeholder='Select your country'
-					value={searchValue?.attributes?.name || searchValue}
-					onClick={checkIfInputFoucs}
+					value={inputValue ? '' : searchValue?.attributes?.name || searchValue}
+					onClick={checkIfInputFocus}
 					onChange={(e) => changeInputValue(e)}
 				/>
 			</div>

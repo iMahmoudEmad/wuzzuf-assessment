@@ -8,9 +8,9 @@ import {
 } from './services/countries.service';
 
 const App = () => {
-	const [countries, setCountries] = useState(null);
-	const [cities, setCities] = useState(null);
-	const [area, setArea] = useState(null);
+	const [countries, setCountries] = useState();
+	const [cities, setCities] = useState();
+	const [area, setArea] = useState();
 	const [selectedCountry, setSelectedCountry] = useState();
 	const [selectedCity, setSelectedCity] = useState();
 	const [load, setLoad] = useState(false);
@@ -70,7 +70,13 @@ const App = () => {
 			{selectedCountry && cities && (
 				<>
 					<h2>City</h2>
-					<Dropdown items={cities} details={getSelectedCityId} />
+					<Dropdown
+						items={cities}
+						details={getSelectedCityId}
+						inputValue={
+							checkIfCountryHasPreviousValue && error && !selectedCity
+						}
+					/>
 					{checkIfCountryHasPreviousValue && error && !selectedCity && (
 						<p className='error'>{error}</p>
 					)}
