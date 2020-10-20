@@ -1,59 +1,59 @@
 .dd {
-    position: relative;
-    
-    &--input {
-        width:250px;
-        height: 40px;
-        padding: .5rem;
-        font-size: .9rem;
-        outline: none;
-        border: 1px solid rgba(#3030e8, .5);
-        border-radius: .25rem;
+	position: relative;
 
-        &:focus{
-            box-shadow: 0 0 1rem 0 rgba(#000,.08);
-        }
-    }
+	&--input {
+		width: 250px;
+		height: 40px;
+		padding: 0.5rem;
+		font-size: 0.9rem;
+		outline: none;
+		border: 1px solid rgba(#3030e8, 0.5);
+		border-radius: 0.25rem;
 
-    &--body-list{
-        max-width: 250px;
-        max-height: 300px;
-        overflow-y: auto;
-        box-shadow: 0 0 1rem 0 rgba(#000,.08);
-        margin: .5rem auto;
-        padding-left: 0;
+		&:focus {
+			box-shadow: 0 0 1rem 0 rgba(#000, 0.08);
+		}
+	}
 
-        li {
-            list-style: none;
-            // background-color: #e3e3e3;
-            border-bottom: 1px solid #e3e3e3;
+	&--body-list {
+		max-width: 250px;
+		max-height: 300px;
+		overflow-y: auto;
+		box-shadow: 0 0 1rem 0 rgba(#000, 0.08);
+		margin: 0.5rem auto;
+		padding-left: 0;
 
-            &:last-of-type {
-                border-bottom: none;
-            }
+		li {
+			list-style: none;
+			// background-color: #e3e3e3;
+			border-bottom: 1px solid #e3e3e3;
 
-            &.selected button {
-                background-color: rgba(#3030e8, .1);
-                color: #3030e8;
-            }
+			&:last-of-type {
+				border-bottom: none;
+			}
 
-            button {
-                background-color: transparent;
-                width:100%;
-                height: 100%;
-                padding-top: 1rem;
-                padding-bottom: 1rem;
-                border:none;
-                cursor: pointer;
-                font-size: .75rem;
-                text-transform: capitalize;
-                transition: background .2s ease-in-out;
+			&.selected button {
+				background-color: rgba(#3030e8, 0.1);
+				color: #3030e8;
+			}
 
-                &:hover{
-                    background-color: rgba(#3030e8, .1);
-                    color: #3030e8;
-                }
-            }
-        }
-    }
+			button {
+				background-color: transparent;
+				width: 100%;
+				height: 100%;
+				padding-top: 1rem;
+				padding-bottom: 1rem;
+				border: none;
+				cursor: pointer;
+				font-size: 0.75rem;
+				text-transform: capitalize;
+				transition: background 0.2s ease-in-out;
+
+				&:hover {
+					background-color: rgba(#3030e8, 0.1);
+					color: #3030e8;
+				}
+			}
+		}
+	}
 }
