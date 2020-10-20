@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import './Dropdown.scss';
 
-const Dropdown = ({ items, details, prevValue, inputValue }) => {
+const Dropdown = ({ items, details, prevValue }) => {
 	const [open, setOpen] = useState(false);
-	const [selected, setSelected] = useState(inputValue || '');
+	const [selected, setSelected] = useState('');
+	const [searchValue, setSearchValue] = useState('');
 
 	const toggleOpen = () => setOpen(!open);
 	const inputEl = useRef(null);
@@ -11,6 +12,7 @@ const Dropdown = ({ items, details, prevValue, inputValue }) => {
 	const setSelectedItem = (item) => {
 		if (item) {
 			setSelected((prev) => checkIfItemHasPreviousValue(prev, item));
+			setSearchValue(item);
 			setOpen(!open);
 			if (details) details(item);
 		}
@@ -26,7 +28,15 @@ const Dropdown = ({ items, details, prevValue, inputValue }) => {
 		if (!open) setOpen(true);
 	};
 
-	const changeInputValue = (e) => setSelected(e.target.value);
+	const changeInputValue = (e) => setSearchValue(e.target.value);
+
+	const filteredItems = items.filter((item) =>
+		(item?.attributes?.name || item)
+			.toLowerCase()
+			.includes(
+				searchValue?.attributes?.name.toLowerCase() || searchValue.toLowerCase()
+			)
+	);
 
 	return (
 		<div className='dd'>
@@ -36,7 +46,7 @@ const Dropdown = ({ items, details, prevValue, inputValue }) => {
 					ref={inputEl}
 					type='text'
 					placeholder='Select your country'
-					value={selected?.attributes?.name || selected}
+					value={searchValue?.attributes?.name}
 					onClick={checkIfInputFoucs}
 					onChange={(e) => changeInputValue(e)}
 				/>
@@ -44,24 +54,15 @@ const Dropdown = ({ items, details, prevValue, inputValue }) => {
 
 			{open && (
 				<ul className='dd--body-list'>
-					{items
-						.filter((item) =>
-							item?.attributes?.name
-								.toLowerCase()
-								.includes(
-									selected?.attributes?.name.toLowerCase() ||
-										selected.toLowerCase()
-								)
-						)
-						.map((item) => (
-							<li
-								key={item.id}
-								className={selected.id === item.id ? 'selected' : ''}>
-								<button type='button' onClick={() => setSelectedItem(item)}>
-									{item?.attributes?.name}
-								</button>
-							</li>
-						))}
+					{filteredItems.map((item) => (
+						<li
+							key={item.id}
+							className={selected.id === item.id ? 'selected' : ''}>
+							<button type='button' onClick={() => setSelectedItem(item)}>
+								{item?.attributes?.name}
+							</button>
+						</li>
+					))}
 				</ul>
 			)}
 		</div>

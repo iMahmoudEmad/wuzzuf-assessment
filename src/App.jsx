@@ -70,11 +70,7 @@ const App = () => {
 			{selectedCountry && cities && (
 				<>
 					<h2>City</h2>
-					<Dropdown
-						items={cities}
-						details={getSelectedCityId}
-						inputValue={selectedCity}
-					/>
+					<Dropdown items={cities} details={getSelectedCityId} />
 					{checkIfCountryHasPreviousValue && error && !selectedCity && (
 						<p className='error'>{error}</p>
 					)}
