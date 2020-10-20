@@ -5,9 +5,7 @@ const Dropdown = ({ items, details, prevValue }) => {
 	const [open, setOpen] = useState(false);
 	const [selected, setSelected] = useState('');
 	const [searchValue, setSearchValue] = useState('');
-
-	const toggleOpen = () => setOpen(!open);
-	const inputEl = useRef(null);
+	const inputEl = useRef();
 
 	const setSelectedItem = (item) => {
 		if (item) {
@@ -46,7 +44,7 @@ const Dropdown = ({ items, details, prevValue }) => {
 					ref={inputEl}
 					type='text'
 					placeholder='Select your country'
-					value={searchValue?.attributes?.name}
+					value={searchValue?.attributes?.name || searchValue}
 					onClick={checkIfInputFoucs}
 					onChange={(e) => changeInputValue(e)}
 				/>
