@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import './Dropdown.scss';
 
 const Dropdown = ({ items, details, inputValue, prevValue }) => {
@@ -39,6 +39,8 @@ const Dropdown = ({ items, details, inputValue, prevValue }) => {
 		return items;
 	});
 
+	const toggleOpen = () => setOpen(!open);
+
 	return (
 		<div className='dd'>
 			<div className='dd--header'>
@@ -51,6 +53,9 @@ const Dropdown = ({ items, details, inputValue, prevValue }) => {
 					onClick={checkIfInputFocus}
 					onChange={(e) => changeInputValue(e)}
 				/>
+				<button type='button' className='dd--button' onClick={toggleOpen}>
+					▼
+				</button>
 			</div>
 
 			{open && (

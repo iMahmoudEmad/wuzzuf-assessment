@@ -15,6 +15,19 @@
 		}
 	}
 
+	&--button {
+		width: 40px;
+		height: 40px;
+		background-color: transparent;
+		border: none;
+		padding-right: 0;
+		padding-left: 0;
+		position: absolute;
+		right: 0;
+		cursor: pointer;
+		outline: none;
+	}
+
 	&--body-list {
 		max-width: 250px;
 		max-height: 300px;
